@@ -120,9 +120,10 @@ class _FirstScreenState extends State<FirstScreen> {
     Map<String, dynamic> args = {"msg": msg};
     final result = await Navigator.pushNamed(context, ThirdScreen.ROUTE_NAME, arguments: args);
 
+    String messge = "you say ${result} for ${msg}";
     // ส่วนสำหรับแสดงข้อความด้านล่างขอบหน้าจอ
         ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text("$result")));
+            ..showSnackBar(SnackBar(content: Text(messge)));
   }
 }
