@@ -19,13 +19,16 @@ class _FirstScreenState extends State<FirstScreen> {
         title: Text('Welcome to Flutter'),
         backgroundColor: Colors.green,
       ),
-      body: ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          if(index.isOdd) return Divider();
-          return ListTile(title: Text('${items[index]}'), onTap: () {});
-        },
-      ),
+      body: ListView.builder(itemCount: items.length, itemBuilder: _buildRow),
+    );
+  }
+
+  Widget _buildRow(context, index) {
+    return Column(
+      children: <Widget>[
+        ListTile(title: Text('${items[index]}'), onTap: () {}),
+        const Divider(),
+      ],
     );
   }
 }
