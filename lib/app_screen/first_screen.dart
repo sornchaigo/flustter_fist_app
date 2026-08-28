@@ -42,11 +42,14 @@ class _FirstScreenState extends State<FirstScreen> {
         ],
       ),
       body: Container(
-        child: ListView.separated(
-          itemCount: _randomWord.length,
-          itemBuilder: _buildRow,
-          separatorBuilder: (context, index) => const Divider(),
-        ),
+        child:
+            _randomWord.length > 0                        // กำหนดเงื่อนไขตรงนี้
+            ? ListView.separated(                         // กรณีมีรายการ แสดงปกติ
+                itemCount: _randomWord.length,
+                itemBuilder: _buildRow,
+                separatorBuilder: (context, index) => const Divider(),
+              )
+            : const Center(child: Text('No items')),      // กรณีไม่มีรายการ
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
