@@ -19,7 +19,15 @@ class _FirstScreenState extends State<FirstScreen> {
         title: Text('Welcome to Flutter'),
         backgroundColor: Colors.green,
       ),
-      body: ListView.builder(itemCount: items.length, itemBuilder: _buildRow),
+      body: ListView.separated(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(title: Text('${items[index]}'), onTap: () {});
+        },
+        separatorBuilder: (context, index) {
+          return const Divider();
+        },
+      ),
     );
   }
 
