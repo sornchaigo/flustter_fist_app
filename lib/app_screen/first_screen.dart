@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
 import 'second_screen.dart';
+import 'third_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -79,7 +80,12 @@ class _FirstScreenState extends State<FirstScreen> {
         children: [
           ListTile(
             title: Text('${_randomWord[index].asPascalCase}'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ThirdScreen()),
+              );
+            },
           ),
           // const Divider(),
         ],
