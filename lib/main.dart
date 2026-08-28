@@ -17,9 +17,9 @@ class MyApp() extends StatelessWidget {
       title: 'First Flutter App',
       // home: FirstScreen()
       routes: {
-        '/': (context) => FirstScreen(),          // Home Screen 
-        '/second': (context) => SecondScreen(),
-        '/third': (context) => ThirdScreen(selectedWord: "Third Screen"),
+        FirstScreen.ROUTE_NAME: (context) => FirstScreen(),          // Home Screen 
+        SecondScreen.ROUTE_NAME: (context) => SecondScreen(),
+        ThirdScreen.ROUTE_NAME: (context) => ThirdScreen(selectedWord: "Third Screen"),
       },
     );
   }

@@ -5,6 +5,8 @@ import 'second_screen.dart';
 import 'third_screen.dart';
 
 class FirstScreen extends StatefulWidget {
+  static const ROUTE_NAME = "/";
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -46,7 +48,7 @@ class _FirstScreenState extends State<FirstScreen> {
             icon: const Icon(Icons.favorite),
             tooltip: "Favorite List",
             onPressed: () {
-              Navigator.pushNamed(context, '/second');
+              Navigator.pushNamed(context, SecondScreen.ROUTE_NAME);
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(builder: (context) => SecondScreen()),
@@ -83,18 +85,18 @@ class _FirstScreenState extends State<FirstScreen> {
             title: Text('${_randomWord[index].asPascalCase}'),
             onTap: () {
               // กำหนดรูปแบบข้อมูลเป็นแบบ Map
-              // Map<String, dynamic> args = {
-              //   "msg": _randomWord[index].asPascalCase.toString(),
-              // };
-              // Navigator.pushNamed(context, "/third", arguments: args);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ThirdScreen(
-                    selectedWord: _randomWord[index].asPascalCase.toString(),
-                  ),
-                ),
-              );
+              Map<String, dynamic> args = {
+                "msg": _randomWord[index].asPascalCase.toString(),
+              };
+              Navigator.pushNamed(context, ThirdScreen.ROUTE_NAME, arguments: args);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => ThirdScreen(
+              //       selectedWord: _randomWord[index].asPascalCase.toString(),
+              //     ),
+              //   ),
+              // );
             },
           ),
           // const Divider(),

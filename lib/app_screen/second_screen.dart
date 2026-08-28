@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
 class SecondScreen extends StatefulWidget {
+  static const ROUTE_NAME = '/second';
   const SecondScreen({super.key});
 
   @override
