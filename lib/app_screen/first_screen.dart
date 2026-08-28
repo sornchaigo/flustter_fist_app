@@ -22,6 +22,7 @@ class _FirstScreenState extends State<FirstScreen> {
       body: ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
+          if(index.isOdd) return Divider();
           return ListTile(title: Text('${items[index]}'), onTap: () {});
         },
       ),
