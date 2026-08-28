@@ -10,12 +10,19 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  String _randomWord = WordPair.random().asPascalCase;
+  // String _randomWord = WordPair.random().asPascalCase;
+  List<WordPair> _randomWord = <WordPair>[];
   final _biggerFont = const TextStyle(color: Colors.black, fontSize: 20.0);
 
-  void _generateWord() {
+  void _addRandomWord() {
     setState(() {
-      _randomWord = WordPair.random().asPascalCase;
+      _randomWord.addAll(generateWordPairs().take(3).toList());
+    });
+  }
+
+  void _clearRandomWord() {
+    setState(() {
+      _randomWord.clear();
     });
   }
 
@@ -26,9 +33,31 @@ class _FirstScreenState extends State<FirstScreen> {
       appBar: AppBar(
         title: Text('Welcome to Flutter'),
         backgroundColor: Colors.green,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.clear_all),
+            tooltip: 'Clear List',
+            onPressed: _clearRandomWord,
+          ),
+        ],
       ),
-      body: ListTile(title: Text(_randomWord, style: _biggerFont)),
+      body: Container(
+        child: ListView.builder(
+          itemCount: _randomWord.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              // title: Text('${randomWord[index]}'),
+              title: Text('${_randomWord[index].asPascalCase}'),
+              onTap: () {},
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        onPressed: _addRandomWord,
+        child: Icon(Icons.add),
+      ),
     );
   }
-
 }
