@@ -31,8 +31,25 @@ class _FirstScreenState extends State<FirstScreen> {
     });
   }
 
+  void _loadRamdomWord() {
+    setState(() {
+      _randomWord.addAll(generateWordPairs().take(15));
+    });
+  }
+
+  Future<void> _loadMoreRandomWord() {
+    return Future.delayed(Duration(milliseconds: 10), () {
+      setState(() {
+        _randomWord.addAll(generateWordPairs().take(20));
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_randomWord.isEmpty) {
+      _loadRamdomWord();
+    }
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -58,16 +75,18 @@ class _FirstScreenState extends State<FirstScreen> {
         ],
       ),
       body: Container(
-        child:
-            _randomWord.length >
-                0 // กำหนดเงื่อนไขตรงนี้
-            ? ListView.separated(
-                // กรณีมีรายการ แสดงปกติ
-                itemCount: _randomWord.length,
-                itemBuilder: _buildRow,
-                separatorBuilder: (context, index) => const Divider(),
-              )
-            : const Center(child: Text('No items')), // กรณีไม่มีรายการ
+        child: ListView.separated(
+          // กรณีมีรายการ แสดงปกติ
+          itemCount: _randomWord.length,
+          itemBuilder: (context, index) {
+            if (index == _randomWord.length - 1) {
+              _loadMoreRandomWord();
+            }
+            // เพิ่ม context
+            return _buildRow(context, index, _randomWord);
+          },
+          separatorBuilder: (context, index) => const Divider(),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
@@ -77,31 +96,33 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 
-  Widget _buildRow(context, index) {
+  Widget _buildRow(context, index, _randomWord) {
     return Container(
       child: Column(
         children: [
           ListTile(
             title: Text('${_randomWord[index].asPascalCase}'),
             onTap: () {
-              // กำหนดรูปแบบข้อมูลเป็นแบบ Map
-              Map<String, dynamic> args = {
-                "msg": _randomWord[index].asPascalCase.toString(),
-              };
-              Navigator.pushNamed(context, ThirdScreen.ROUTE_NAME, arguments: args);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => ThirdScreen(
-              //       selectedWord: _randomWord[index].asPascalCase.toString(),
-              //     ),
-              //   ),
-              // );
+              _showYourChoice(
+                context,
+                _randomWord[index].asPascalCase.toString(),
+              );
             },
           ),
           // const Divider(),
         ],
       ),
     );
+  }
+
+  _showYourChoice(context, msg) async {
+    // กำหนดรูปแบบข้อมูลเป็นแบบ Map
+    Map<String, dynamic> args = {"msg": msg};
+    final result = await Navigator.pushNamed(context, ThirdScreen.ROUTE_NAME, arguments: args);
+
+    // ส่วนสำหรับแสดงข้อความด้านล่างขอบหน้าจอ
+        ScaffoldMessenger.of(context)
+            ..removeCurrentSnackBar()
+            ..showSnackBar(SnackBar(content: Text("$result")));
   }
 }

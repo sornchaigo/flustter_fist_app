@@ -29,7 +29,37 @@ class _ThirdScreen extends State<ThirdScreen> {
         backgroundColor: Colors.green,
       ),
       // body: Center(child: Text(widget.selectedWord, style: _biggerFont)),
-      body: Center(child: Text(args['msg'], style: _biggerFont)),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(args['msg'], style: _biggerFont),
+            ),
+            Text("Do you like this word?"),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    child: Text('Yep!'),
+                    onPressed: () => Navigator.pop(context, 'Yep!'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    child: Text('Nope.'),
+                    onPressed: () => Navigator.pop(context, 'Nope.'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
