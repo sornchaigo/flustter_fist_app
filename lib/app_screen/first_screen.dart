@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -9,7 +10,14 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  final items = List<String>.generate(100, (i) => "Item $i");
+  String _randomWord = WordPair.random().asPascalCase;
+  final _biggerFont = const TextStyle(color: Colors.black, fontSize: 20.0);
+
+  void _generateWord() {
+    setState(() {
+      _randomWord = WordPair.random().asPascalCase;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,24 +27,8 @@ class _FirstScreenState extends State<FirstScreen> {
         title: Text('Welcome to Flutter'),
         backgroundColor: Colors.green,
       ),
-      body: ListView.separated(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return ListTile(title: Text('${items[index]}'), onTap: () {});
-        },
-        separatorBuilder: (context, index) {
-          return const Divider();
-        },
-      ),
+      body: ListTile(title: Text(_randomWord, style: _biggerFont)),
     );
   }
 
-  Widget _buildRow(context, index) {
-    return Column(
-      children: <Widget>[
-        ListTile(title: Text('${items[index]}'), onTap: () {}),
-        const Divider(),
-      ],
-    );
-  }
 }
