@@ -67,7 +67,11 @@ class _FirstScreenState extends State<FirstScreen> {
             icon: const Icon(Icons.favorite),
             tooltip: "Favorite List",
             onPressed: () {
-              Navigator.pushNamed(context, SecondScreen.ROUTE_NAME);
+              Navigator.pushNamed(
+                context,
+                SecondScreen.ROUTE_NAME,
+                arguments: _favorite,
+              );
               // Navigator.push(
               //   context,
               //   MaterialPageRoute(builder: (context) => SecondScreen()),
@@ -132,7 +136,9 @@ class _FirstScreenState extends State<FirstScreen> {
 
     setState(() {
       if (result == 'Yep!') {
-        _favorite.add(word);
+        if (!_favorite.contains(word)) {
+          _favorite.add(word);
+        }
       } else {
         _favorite.remove(word);
       }
