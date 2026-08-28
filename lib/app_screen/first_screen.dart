@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
+import 'second_screen.dart';
+
 class FirstScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -39,17 +41,29 @@ class _FirstScreenState extends State<FirstScreen> {
             tooltip: 'Clear List',
             onPressed: _clearRandomWord,
           ),
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            tooltip: "Favorite List",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SecondScreen()),
+              );
+            },
+          ),
         ],
       ),
       body: Container(
         child:
-            _randomWord.length > 0                        // กำหนดเงื่อนไขตรงนี้
-            ? ListView.separated(                         // กรณีมีรายการ แสดงปกติ
+            _randomWord.length >
+                0 // กำหนดเงื่อนไขตรงนี้
+            ? ListView.separated(
+                // กรณีมีรายการ แสดงปกติ
                 itemCount: _randomWord.length,
                 itemBuilder: _buildRow,
                 separatorBuilder: (context, index) => const Divider(),
               )
-            : const Center(child: Text('No items')),      // กรณีไม่มีรายการ
+            : const Center(child: Text('No items')), // กรณีไม่มีรายการ
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
