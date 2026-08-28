@@ -46,10 +46,11 @@ class _FirstScreenState extends State<FirstScreen> {
             icon: const Icon(Icons.favorite),
             tooltip: "Favorite List",
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SecondScreen()),
-              );
+              Navigator.pushNamed(context, '/second');
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => SecondScreen()),
+              // );
             },
           ),
         ],
@@ -81,10 +82,11 @@ class _FirstScreenState extends State<FirstScreen> {
           ListTile(
             title: Text('${_randomWord[index].asPascalCase}'),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ThirdScreen()),
-              );
+              Navigator.pushNamed(context, "/third");
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => ThirdScreen()),
+              // );
             },
           ),
           // const Divider(),
