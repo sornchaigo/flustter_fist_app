@@ -42,21 +42,30 @@ class _FirstScreenState extends State<FirstScreen> {
         ],
       ),
       body: Container(
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: _randomWord.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              // title: Text('${randomWord[index]}'),
-              title: Text('${_randomWord[index].asPascalCase}'),
-              onTap: () {},
-            );
-          },
+          itemBuilder: _buildRow,
+          separatorBuilder: (context, index) => const Divider(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
         onPressed: _addRandomWord,
         child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget _buildRow(context, index) {
+    return Container(
+      child: Column(
+        children: [
+          ListTile(
+            title: Text('${_randomWord[index].asPascalCase}'),
+            onTap: () {},
+          ),
+          // const Divider(),
+        ],
       ),
     );
   }
