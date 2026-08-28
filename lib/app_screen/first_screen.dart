@@ -17,6 +17,7 @@ class FirstScreen extends StatefulWidget {
 class _FirstScreenState extends State<FirstScreen> {
   // String _randomWord = WordPair.random().asPascalCase;
   List<WordPair> _randomWord = <WordPair>[];
+  List<WordPair> _favorite = <WordPair>[];
   final _biggerFont = const TextStyle(color: Colors.black, fontSize: 20.0);
 
   void _addRandomWord() {
@@ -28,6 +29,7 @@ class _FirstScreenState extends State<FirstScreen> {
   void _clearRandomWord() {
     setState(() {
       _randomWord.clear();
+      _favorite.clear();
     });
   }
 
@@ -83,7 +85,8 @@ class _FirstScreenState extends State<FirstScreen> {
               _loadMoreRandomWord();
             }
             // เพิ่ม context
-            return _buildRow(context, index, _randomWord);
+            var word = _randomWord[index];
+            return _buildRow(context, word);
           },
           separatorBuilder: (context, index) => const Divider(),
         ),
@@ -96,17 +99,20 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 
-  Widget _buildRow(context, index, _randomWord) {
+  Widget _buildRow(context, word) {
+    bool _alreadyFavorite = _favorite.contains(word);
+
     return Container(
       child: Column(
         children: [
           ListTile(
-            title: Text('${_randomWord[index].asPascalCase}'),
+            title: Text('${word.asPascalCase}'),
+            trailing: Icon(
+              _alreadyFavorite ? Icons.favorite : Icons.favorite_border,
+              color: _alreadyFavorite ? Colors.red : null,
+            ),
             onTap: () {
-              _showYourChoice(
-                context,
-                _randomWord[index].asPascalCase.toString(),
-              );
+              _showYourChoice(context, word);
             },
           ),
           // const Divider(),
@@ -115,15 +121,27 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 
-  _showYourChoice(context, msg) async {
+  _showYourChoice(context, word) async {
     // กำหนดรูปแบบข้อมูลเป็นแบบ Map
-    Map<String, dynamic> args = {"msg": msg};
-    final result = await Navigator.pushNamed(context, ThirdScreen.ROUTE_NAME, arguments: args);
+    Map<String, dynamic> args = {"msg": word.asPascalCase.toString()};
+    final result = await Navigator.pushNamed(
+      context,
+      ThirdScreen.ROUTE_NAME,
+      arguments: args,
+    );
 
-    String messge = "you say ${result} for ${msg}";
+    setState(() {
+      if (result == 'Yep!') {
+        _favorite.add(word);
+      } else {
+        _favorite.remove(word);
+      }
+    });
+
+    String messge = "you say ${result}";
     // ส่วนสำหรับแสดงข้อความด้านล่างขอบหน้าจอ
-        ScaffoldMessenger.of(context)
-            ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(messge)));
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(messge)));
   }
 }
