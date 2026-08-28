@@ -19,7 +19,7 @@ class MyApp() extends StatelessWidget {
       routes: {
         '/': (context) => FirstScreen(),          // Home Screen 
         '/second': (context) => SecondScreen(),
-        '/third': (context) => ThirdScreen(),
+        '/third': (context) => ThirdScreen(selectedWord: "Third Screen"),
       },
     );
   }

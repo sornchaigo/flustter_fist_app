@@ -83,10 +83,18 @@ class _FirstScreenState extends State<FirstScreen> {
             title: Text('${_randomWord[index].asPascalCase}'),
             onTap: () {
               // กำหนดรูปแบบข้อมูลเป็นแบบ Map
-              Map<String, dynamic> args = {
-                "msg": _randomWord[index].asPascalCase.toString(),
-              };
-              Navigator.pushNamed(context, "/third", arguments: args);
+              // Map<String, dynamic> args = {
+              //   "msg": _randomWord[index].asPascalCase.toString(),
+              // };
+              // Navigator.pushNamed(context, "/third", arguments: args);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ThirdScreen(
+                    selectedWord: _randomWord[index].asPascalCase.toString(),
+                  ),
+                ),
+              );
             },
           ),
           // const Divider(),
