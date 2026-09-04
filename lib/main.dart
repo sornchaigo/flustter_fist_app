@@ -12,19 +12,24 @@ class MyApp() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MyWidget(
-      color: Colors.red,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'First Flutter App',
-        // home: FirstScreen()
-        routes: {
-          FirstScreen.ROUTE_NAME: (context) => FirstScreen(), // Home Screen
-          SecondScreen.ROUTE_NAME: (context) => SecondScreen(),
-          ThirdScreen.ROUTE_NAME: (context) =>
-              ThirdScreen(selectedWord: "Third Screen"),
-        },
-      ),
+    // return MyWidget(
+    //   color: Colors.red,
+    //   child: MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     title: 'First Flutter App',
+    //     routes: {
+    //       FirstScreen.ROUTE_NAME: (context) => FirstScreen(), // Home Screen
+    //       SecondScreen.ROUTE_NAME: (context) => SecondScreen(),
+    //       ThirdScreen.ROUTE_NAME: (context) =>
+    //           ThirdScreen(selectedWord: "Third Screen"),
+    //     },
+    //   ),
+    // );
+    return MyWidget(color: Colors.red, 
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LevelFour(),
+    )
     );
   }
 }
@@ -37,8 +42,10 @@ class MyWidget extends StatefulWidget {
   const MyWidget({Key? key, required this.color, required Widget this.child})
     : super(key: key);
 
-  static _MyWidget of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_MyWidget>()!;
+  static _MyWidgetState of(BuildContext context) {
+    final inheritedWidget = context
+        .dependOnInheritedWidgetOfExactType<_MyWidget>();
+    return inheritedWidget!.state;
   }
 
   @override
@@ -80,17 +87,22 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return _MyWidget(color: color, child: widget.child);
+    return _MyWidget(color: color, state: this, child: widget.child);
   }
 }
 
 // _MyWidget เป็น private
 class _MyWidget extends InheritedWidget {
   final Color color; // property
+  final _MyWidgetState state;
 
   // constructor
-  const _MyWidget({Key? key, required this.color, required Widget child})
-    : super(child: child);
+  const _MyWidget({
+    Key? key,
+    required this.color,
+    required this.state,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(data) => true;
@@ -101,7 +113,39 @@ class LevelFour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final color = context.dependOnInheritedWidgetOfExactType<MyWidget>()!.color;
-    final color = MyWidget.of(context).color;
-    return Text("Level four", style: TextStyle(color: color));
+    // final color = MyWidget.of(context).color;
+    final state = MyWidget.of(context);
+    final color = state.color;
+
+    // return Text("Level four", style: TextStyle(color: color));
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("Level four", style: TextStyle(color: color)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: state.setBlue,
+              child: Text('SetBlue'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: state.setRed,
+              child: Text('SetRed'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: state.setGreen,
+              child: Text('SetGreen'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
