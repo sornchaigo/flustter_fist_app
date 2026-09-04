@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
+import 'package:flustter_fist_app/providers/mycolor.dart';
+
 import 'second_screen.dart';
 import 'third_screen.dart';
+import 'fourth_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   static const ROUTE_NAME = "/";
@@ -49,6 +52,9 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = MyColor.of(context);
+    final color = state.color;
+
     if (_randomWord.isEmpty) {
       _loadRamdomWord();
     }
@@ -78,6 +84,16 @@ class _FirstScreenState extends State<FirstScreen> {
               // );
             },
           ),
+          IconButton(
+    icon: const Icon(Icons.settings),
+    tooltip: 'Settings',
+    onPressed: () {
+      Navigator.pushNamed(
+          context,
+          FourthScreen.ROUTE_NAME
+      );                                  
+    }
+),
         ],
       ),
       body: Container(
@@ -96,7 +112,7 @@ class _FirstScreenState extends State<FirstScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
+        backgroundColor: color,
         onPressed: _addRandomWord,
         child: Icon(Icons.add),
       ),
