@@ -21,9 +21,9 @@ class MyApp() extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
-              .copyWith(primary: Colors.pink)
+              .copyWith(primary: Colors.lightBlue)
               .copyWith(secondary: Colors.purple),
-          textTheme: TextTheme(displayMedium: TextStyle(color: Colors.red)),
+          textTheme: TextTheme(titleLarge: TextStyle(color: Colors.white)),
         ),
 
         title: 'First Flutter App',

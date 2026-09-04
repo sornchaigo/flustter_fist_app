@@ -19,9 +19,8 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   // String _randomWord = WordPair.random().asPascalCase;
-  List<WordPair> _randomWord = <WordPair>[];
-  List<WordPair> _favorite = <WordPair>[];
-  final _biggerFont = const TextStyle(color: Colors.black, fontSize: 20.0);
+  final List<WordPair> _randomWord = <WordPair>[];
+  final List<WordPair> _favorite = <WordPair>[];
 
   void _addRandomWord() {
     setState(() {
@@ -60,6 +59,45 @@ class _FirstScreenState extends State<FirstScreen> {
     }
     // TODO: implement build
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text('Ebiwayo'),
+              accountEmail: Text('ebiwayo@ebiwayo.com'),
+              currentAccountPicture: CircleAvatar(
+                child: FlutterLogo(size: 42.0),
+                backgroundColor: Colors.white,
+              ),
+              otherAccountsPictures: <Widget>[
+                CircleAvatar(
+                  child: Text("N"),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.orange,
+                ),
+                CircleAvatar(
+                  child: Icon(Icons.add),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.grey,
+                ),
+              ],
+            ),
+            ListTile(title: Text('Item 1'), onTap: () {}),
+            Divider(),
+            ListTile(title: Text('Item 2'), onTap: () {}),
+            Divider(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: ListTile(title: Text('Item 3'), onTap: () {}),
+              ),
+            ),
+          ],
+        ),
+      ),
+
       appBar: AppBar(
         title: Text('Welcome to Flutter'),
         // backgroundColor: color,
@@ -86,15 +124,12 @@ class _FirstScreenState extends State<FirstScreen> {
             },
           ),
           IconButton(
-    icon: const Icon(Icons.settings),
-    tooltip: 'Settings',
-    onPressed: () {
-      Navigator.pushNamed(
-          context,
-          FourthScreen.ROUTE_NAME
-      );                                  
-    }
-),
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
+            onPressed: () {
+              Navigator.pushNamed(context, FourthScreen.ROUTE_NAME);
+            },
+          ),
         ],
       ),
       body: Container(
