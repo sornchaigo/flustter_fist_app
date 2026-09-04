@@ -62,7 +62,8 @@ class _FirstScreenState extends State<FirstScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome to Flutter'),
-        backgroundColor: Colors.green,
+        // backgroundColor: color,
+        backgroundColor: Theme.of(context).primaryColor,
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.clear_all),

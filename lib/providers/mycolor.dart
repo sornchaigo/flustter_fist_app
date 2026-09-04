@@ -19,7 +19,7 @@ class MyColor extends StatefulWidget {
 }
   
 class _MyColorState extends State<MyColor> {
-    Color color = Colors.green;
+    Color color = Colors.pink;
  
     @override
     void initState() {

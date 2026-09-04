@@ -19,6 +19,13 @@ class MyApp() extends StatelessWidget {
       color: Colors.red,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
+              .copyWith(primary: Colors.pink)
+              .copyWith(secondary: Colors.purple),
+          textTheme: TextTheme(displayMedium: TextStyle(color: Colors.red)),
+        ),
+
         title: 'First Flutter App',
         initialRoute: '/', // สามารถใช้ home แทนได้
         routes: {
@@ -26,8 +33,13 @@ class MyApp() extends StatelessWidget {
           SecondScreen.ROUTE_NAME: (context) => SecondScreen(),
           ThirdScreen.ROUTE_NAME: (context) =>
               ThirdScreen(selectedWord: "Third Screen"),
-          FourthScreen.ROUTE_NAME:(context) => FourthScreen(),
+          FourthScreen.ROUTE_NAME: (context) => FourthScreen(),
         },
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          /* dark theme settings */
+        ),
+        // themeMode: ThemeMode.dark,
       ),
     );
   }
