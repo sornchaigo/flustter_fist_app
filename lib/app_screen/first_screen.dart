@@ -3,6 +3,7 @@ import 'package:english_words/english_words.dart';
 
 import 'package:flustter_fist_app/providers/mycolor.dart';
 
+import '../components/sidemenu.dart';
 import 'second_screen.dart';
 import 'third_screen.dart';
 import 'fourth_screen.dart';
@@ -59,44 +60,7 @@ class _FirstScreenState extends State<FirstScreen> {
     }
     // TODO: implement build
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text('Ebiwayo'),
-              accountEmail: Text('ebiwayo@ebiwayo.com'),
-              currentAccountPicture: CircleAvatar(
-                child: FlutterLogo(size: 42.0),
-                backgroundColor: Colors.white,
-              ),
-              otherAccountsPictures: <Widget>[
-                CircleAvatar(
-                  child: Text("N"),
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.orange,
-                ),
-                CircleAvatar(
-                  child: Icon(Icons.add),
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.grey,
-                ),
-              ],
-            ),
-            ListTile(title: Text('Item 1'), onTap: () {}),
-            Divider(),
-            ListTile(title: Text('Item 2'), onTap: () {}),
-            Divider(),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: ListTile(title: Text('Item 3'), onTap: () {}),
-              ),
-            ),
-          ],
-        ),
-      ),
+      drawer: SideMenu(),
 
       appBar: AppBar(
         title: Text('Welcome to Flutter'),
